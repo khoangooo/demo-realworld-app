@@ -3,8 +3,8 @@ import Footer from "./Footer";
 import Header from "./Header";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import Sidebar from "./Sidebar";
+import Tag from "./Tag";
 import Tabs from "./Tabs";
 import MainMenu from "./MainMenu";
 
-export { Feed, Footer, Header, LoginForm, RegisterForm, Sidebar, Tabs, MainMenu };
+export { Feed, Footer, Header, LoginForm, RegisterForm, Tag, Tabs, MainMenu };
