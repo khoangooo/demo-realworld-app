@@ -5,7 +5,7 @@ function Feed() {
     <div className="feed-toggle">
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
-          <Link className="nav-link disabled" to="">
+          <Link className="nav-link" to="">
             Your Feed
           </Link>
         </li>

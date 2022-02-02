@@ -1,18 +1,18 @@
-import RegisterForm from "../containers/RegisterForm";
+import { RegisterForm } from "../containers";
 import {Link} from "react-router-dom";
 
 function Register() {
     return (
-        <div class="auth-page">
-            <div class="container page">
-                <div class="row">
-                    <div class="col-md-6 offset-md-3 col-xs-12">
-                        <h1 class="text-xs-center">Sign up</h1>
-                        <p class="text-xs-center">
+        <div className="auth-page">
+            <div className="container page">
+                <div className="row">
+                    <div className="col-md-6 offset-md-3 col-xs-12">
+                        <h1 className="text-xs-center">Sign up</h1>
+                        <p className="text-xs-center">
                             <Link to="/login">Have an account?</Link>
                         </p>
 
-                        <ul class="error-messages">
+                        <ul className="error-messages">
                             <li>That email is already taken</li>
                         </ul>
 

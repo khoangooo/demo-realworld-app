@@ -1,29 +1,49 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import {ARTICLES} from "../constants/endpoints";
 
-function ArticlePreview() {
-  return (
-    <div className="article-preview">
-      <div className="article-meta">
-        <Link to="profile.html">
-          <img src="http://i.imgur.com/Qr71crq.jpg" alt=""/>
-        </Link>
-        <div className="info">
-          <Link to="" className="author">
-            Eric Simons
-          </Link>
-          <span className="date">January 20th</span>
+function ArticlePreview({
+    imgUrl = "http://i.imgur.com/Qr71crq.jpg",
+    alt = "",
+    username = "",
+    dateString = "",
+    favoritesCount = "",
+    title = "",
+    description = "",
+    tagList = [],
+    slug=""
+}) {
+    return (
+        <div className="article-preview">
+            <div className="article-meta">
+                <Link to="profile.html">
+                    <img src={imgUrl} alt={alt} />
+                </Link>
+                <div className="info">
+                    <Link to="" className="author">
+                        {username}
+                    </Link>
+                    <span className="date">{dateString}</span>
+                </div>
+                <button className="btn btn-outline-primary btn-sm pull-xs-right">
+                    <i className="ion-heart"></i> {favoritesCount}
+                </button>
+            </div>
+            <Link to={`/${ARTICLES}/${slug}`} className="preview-link">
+                <h1>{title}</h1>
+                <p>{description}</p>
+                <span>Read more...</span>
+                {tagList.length > 0 && (
+                    <ul className="tag-list">
+                        {tagList.map((item) => (
+                            <li key={item} className="tag-default tag-pill tag-outline">
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </Link>
         </div>
-        <button className="btn btn-outline-primary btn-sm pull-xs-right">
-          <i className="ion-heart"></i> 29
-        </button>
-      </div>
-      <Link to="" className="preview-link">
-        <h1>How to build webapps that scale</h1>
-        <p>This is the description for the post.</p>
-        <span>Read more...</span>
-      </Link>
-    </div>
-  );
+    );
 }
 
 export default ArticlePreview;

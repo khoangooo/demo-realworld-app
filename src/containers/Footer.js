@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer>
       <div className="container">
-        <Link to="#/" className="logo-font">
+        <Link to="/" className="logo-font">
           conduit
         </Link>
         <span className="attribution">

@@ -1,6 +1,11 @@
-function Button({ title = "Click me", className = "btn btn-lg btn-primary pull-xs-right", ...props }) {
+function Button({
+    title = "Click me",
+    className = "btn btn-lg btn-primary pull-xs-right",
+    onClick = () => {},
+    ...props
+}) {
     return (
-        <button className={className} {...props}>
+        <button className={className} onClick={onClick} {...props}>
             {title}
         </button>
     );
