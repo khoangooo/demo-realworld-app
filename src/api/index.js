@@ -1,61 +1,29 @@
-import axios from "axios";
+import api from "./configApi";
+import { ARTICLES, TAGS } from "../constants/endpoints";
 
-let mainAxios = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
-    headers: {
-        "Content-Type": "application/json",
-    },
-});
+class Api {
+    static getArticles = (params) => {
+        let queryString = `limit=${params.limit || 10}&offset=${params.offset || 0}`;
+        if (params.tag) {
+            queryString += `&tag=${params.tag}`;
+        }
 
-// Interceptor request
-mainAxios.interceptors.request.use(
-    function (config) {
-        return config
-    },
-    function (error) {
-        // Do something with request error
-        return Promise.reject(error);
-    }
-);
+        return new Promise((resolve, reject) => {
+            resolve(api.get(`/${ARTICLES}?${queryString}`));
+        });
+    };
 
-// Interceptor response
-mainAxios.interceptors.response.use(
-    function (response) {
-        // Do something with response data
-        return response.data;
-    },
-    function (error) {
-        // if (error?.response?.status === 401) {
-        //     // removeToken();
-        //     if (window.location.pathname !== "/login") {
-        //         window.location.href = "/login";
-        //     }
-        // }
-        // else if (error?.response?.status === 403) {
-        //     if (error?.response?.data.message === "Role Invalid") {
-        //         window.location.href = "/";
-        //     } else if (error.response.data.message === "Token Expired") {
-        //         if (localStorage.getItem("rem") === "true") {
-        //             axios.post(Config.BASE_URL + "/user/refresh").then(function (res) {
-        //                 storeToken(res.data.token).then(function () {
-        //                     error.config.headers.Authorization = "Bearer " + res.data.token;
-        //                     return axios(error.config);
-        //                 });
-        //             });
-        //         } else {
-        //             removeToken();
-        //             if (window.location.pathname !== "/login") {
-        //                 window.location.href = "/login";
-        //             }
-        //         }
-        //     }
-        // } else if (error?.response?.status === 503) {
-        //     // System maintenance
-        //     window.location.href = "/maintenance";
-        // }
+    static getArticle = (slug) => {
+        return new Promise((resolve, reject) => {
+            resolve(api.get(`/${ARTICLES}/${slug}`));
+        });
+    };
 
-        return Promise.reject(error);
-    }
-);
+    static getTags = () => {
+        return new Promise((resolve, reject) => {
+            resolve(api.get(`/${TAGS}`));
+        });
+    };
+}
 
-export default mainAxios;
+export default Api;

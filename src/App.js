@@ -1,8 +1,23 @@
-import Layout from "./pages/Layout";
+import { Layout } from "./pages";
+import { Routes, Route } from "react-router-dom";
+import mainRoutes from "./routes";
 import "./App.css";
 
 function App() {
-  return <Layout />;
+	
+    return (
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                {mainRoutes.map((item, index) => {
+                    return item.index ? (
+                        <Route key={index} index={item.index} element={item.element} />
+                    ) : (
+                        <Route key={index} path={item.path} element={item.element} />
+                    );
+                })}
+            </Route>
+        </Routes>
+    );
 }
 
 export default App;

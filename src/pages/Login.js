@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { LoginForm } from "../containers";
 import { Link } from "react-router-dom";
 
 function Login() {
+
+    useEffect(() => {
+        document.title = "Sign in - Conduit"
+    })
+
     return (
         <div className="auth-page">
             <div className="container page">
@@ -15,7 +21,6 @@ function Login() {
                         <ul className="error-messages">
                             <li>That email is already taken</li>
                         </ul>
-
                         <LoginForm />
                     </div>
                 </div>
@@ -23,5 +28,6 @@ function Login() {
         </div>
     );
 }
+
 
 export default Login;

@@ -1,8 +1,8 @@
 import { useState, useEffect, Fragment } from "react";
 import { Banner } from "../components";
-import { ArticlePreview } from "../components";
-import { Feed, Tag } from "../containers";
-import api from "../api/routes";
+import { ArticlePreview, Tag } from "../components";
+import { Feed } from "../containers";
+import api from "../api";
 import dayjs from "dayjs";
 
 function Home() {
@@ -15,6 +15,10 @@ function Home() {
         getArticles();
         getTags();
     }, []);
+
+    useEffect(() => {
+        document.title = "Home - Conduit"
+    })
 
     const getArticles = (tag) => {
         setLoadingArticles(true);

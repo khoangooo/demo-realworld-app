@@ -1,7 +1,14 @@
+import { useEffect } from "react";
 import { RegisterForm } from "../containers";
 import {Link} from "react-router-dom";
 
 function Register() {
+
+    useEffect(() => {
+        document.title = "Sign up - Conduit"
+    })
+
+
     return (
         <div className="auth-page">
             <div className="container page">

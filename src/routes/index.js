@@ -1,37 +1,34 @@
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import { Article, Home, Login, Register } from "../pages";
 
 const headerMenuItem = [
     {
         path: "/",
-        title: "Home",
-        component: Home,
-        needToBeLogged: false,
+        element: <Home />,
+        index: true,
     },
     // {
     //     to: "/",
-    //     title: "New Article",
     //     component: null,
-    //     needToBeLogged: true,
     // },
     // {
     //     to: "/",
-    //     title: "Settings",
     //     component: null,
-    //     needToBeLogged: true,
     // },
     {
-        path: "/login",
-        title: "Sign in",
-        component: Login,
-        needToBeLogged: false,
+        path: "login",
+        element: <Login />,
+        index: false,
     },
     {
-        path: "/register",
-        title: "Sign up",
-        component: Register,
-        needToBeLogged: false,
+        path: "article/:article_slug",
+        element: <Article />,
+        index: false,
+        title: ""
+    },
+    {
+        path: "register",
+        element: <Register />,
+        index: false,
     },
 ];
 

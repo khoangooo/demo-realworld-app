@@ -1,18 +1,17 @@
-import { Header, Footer} from "../containers";
-import { Routes, Route } from "react-router-dom";
-import mainRoutes from "../routes";
+import { useEffect } from "react";
+import { Header, Footer } from "../containers";
+import { Outlet } from "react-router-dom";
 
-function Layout() {
+function Layout({title}) {
+    
+    useEffect(() => {
+        document.title = title
+    })
+
     return (
         <>
             <Header />
-            <Routes>
-                <Route>
-                    {mainRoutes.map((item, index) => (
-                        <Route key={index} path={item.path} element={<item.component />} />
-                    ))}
-                </Route>
-            </Routes>
+            <Outlet />
             <Footer />
         </>
     );

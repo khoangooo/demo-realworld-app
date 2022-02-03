@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {ARTICLES} from "../constants/endpoints";
+import {ARTICLE} from "../constants/endpoints";
 
 function ArticlePreview({
     imgUrl = "http://i.imgur.com/Qr71crq.jpg",
@@ -28,7 +28,7 @@ function ArticlePreview({
                     <i className="ion-heart"></i> {favoritesCount}
                 </button>
             </div>
-            <Link to={`/${ARTICLES}/${slug}`} className="preview-link">
+            <Link to={`/${ARTICLE}/${slug}`} className="preview-link">
                 <h1>{title}</h1>
                 <p>{description}</p>
                 <span>Read more...</span>
