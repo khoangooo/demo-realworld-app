@@ -1,6 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import { Banner } from "../components";
-import { ArticlePreview, Tag } from "../components";
+import { Preview, Tag } from "../components";
 import { Feed } from "../containers";
 import api from "../api";
 import dayjs from "dayjs";
@@ -17,8 +16,8 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        document.title = "Home - Conduit"
-    })
+        document.title = "Home - Conduit";
+    });
 
     const getArticles = (tag) => {
         setLoadingArticles(true);
@@ -45,12 +44,17 @@ function Home() {
     };
 
     const handleGettingArticlesByTagName = (tag) => {
-        getArticles(tag)
+        getArticles(tag);
     };
 
     return (
         <div className="home-page">
-            <Banner />
+            <div className="banner">
+                <div className="container">
+                    <h1 className="logo-font">conduit</h1>
+                    <p>A place to share your knowledge.</p>
+                </div>
+            </div>
             <div className="container page">
                 <div className="row">
                     <div className="col-md-9">
@@ -60,7 +64,7 @@ function Home() {
                         ) : (
                             articles.map((item, index) => (
                                 <Fragment key={index}>
-                                    <ArticlePreview
+                                    <Preview
                                         imgUrl={item.author.image}
                                         alt={item.author.username}
                                         username={item.author.username}
@@ -85,7 +89,11 @@ function Home() {
                                 <div className="tag-list">
                                     {tags.length > 0 &&
                                         tags.map((tag) => (
-                                            <Tag key={tag} tag={tag} onClick={() => handleGettingArticlesByTagName(tag)} />
+                                            <Tag
+                                                key={tag}
+                                                tag={tag}
+                                                onClick={() => handleGettingArticlesByTagName(tag)}
+                                            />
                                         ))}
                                 </div>
                             )}

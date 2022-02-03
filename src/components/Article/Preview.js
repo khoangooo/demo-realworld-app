@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {ARTICLE} from "../constants/endpoints";
+import {ARTICLE} from "../../constants/endpoints";
 
 function ArticlePreview({
     imgUrl = "http://i.imgur.com/Qr71crq.jpg",

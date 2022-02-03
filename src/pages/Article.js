@@ -1,32 +1,34 @@
 import { useState, useEffect } from "react";
-import { ArticleBanner } from "../components";
-import { useParams, useNavigate } from "react-router-dom";
+import { Banner, Content, PostCard } from "../components";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../api";
 import dayjs from "dayjs";
 
 function Article() {
     const { article_slug } = useParams();
     const [article, setArticle] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [loadingArticle, setLoadingArticle] = useState(false);
+    const [loadingComments, setLoadingComments] = useState(false);
     let navigate = useNavigate();
 
     useEffect(() => {
         if (article_slug) {
             getArticle(article_slug);
-            
+            getComments(article_slug);
         }
-    }, [article_slug]);
+    }, []);
 
     useEffect(() => {
         if (article_slug) {
-            document.title = article_slug.split("-").join(" ");
+            document.title = article_slug.split("-").join(" ") + " - Conduit";
         }
-    })
+    });
 
     const getArticle = (slug) => {
-        setLoading(true);
+        setLoadingArticle(true);
         api.getArticle(slug).then((res) => {
-            setLoading(false);
+            setLoadingArticle(false);
             if (Object.keys(res).length) {
                 setArticle(res.article);
             } else {
@@ -35,22 +37,69 @@ function Article() {
         });
     };
 
+    const getComments = (slug) => {
+        setLoadingComments(true);
+        api.getComments(slug).then((res) => {
+            setLoadingComments(false);
+            if (Object.keys(res).length) {
+                setComments(res.comments);
+            } else {
+                setComments({});
+            }
+        });
+    };
+
     const handleGoToUserPage = () => {
         navigate("/register");
-    }
+    };
 
     return (
-        !loading && (
+        !loadingArticle && (
             <div className="article-page">
-                <ArticleBanner
-                    title={article.title}
-                    username={article.author?.username || ""}
-                    dateString={dayjs(article.updatedAt).format("MMMM DD,YYYY")}
-                    favoritesCount={article.favoritesCount}
-                    imgUrl={article.author?.image}
-                    alt={article.author?.username}
-                    handleGoToUserPage={handleGoToUserPage}
-                />
+                <div className="banner">
+                    <Banner
+                        title={article.title}
+                        username={article.author?.username}
+                        dateString={dayjs(article.updatedAt).format("MMMM DD,YYYY")}
+                        favoritesCount={article.favoritesCount}
+                        imgUrl={article.author?.image}
+                        alt={article.author?.username}
+                        handleGoToUserPage={handleGoToUserPage}
+                    />
+                </div>
+                <div className="container page">
+                    <Content body={article.body} tagList={article.tagList} />
+                    <hr />
+                    <div className="article-actions">
+                        <Banner
+                            username={article.author?.username}
+                            dateString={dayjs(article.updatedAt).format("MMMM DD,YYYY")}
+                            favoritesCount={article.favoritesCount}
+                            imgUrl={article.author?.image}
+                            alt={article.author?.username}
+                            handleGoToUserPage={handleGoToUserPage}
+                        />
+                    </div>
+                    <div className="row">
+                        <div className="col-xs-12 col-md-8 offset-md-2">
+                            <p>
+                                <Link to="/login">Sign in</Link> or&nbsp;
+                                <Link to="/register">sign up</Link> to add comments on this article.
+                            </p>
+                            {!loadingComments &&
+                                comments.length > 0 &&
+                                comments.map((comment, index) => (
+                                    <PostCard
+                                        key={index}
+                                        body={comment.body}
+                                        username={comment.author.username}
+                                        dateString={dayjs(comment.updatedAt).format("MMMM DD,YYYY")}
+                                        imgUrl={comment.author.image}
+                                    />
+                                ))}
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     );

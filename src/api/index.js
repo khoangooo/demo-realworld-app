@@ -1,5 +1,5 @@
 import api from "./configApi";
-import { ARTICLES, TAGS } from "../constants/endpoints";
+import { ARTICLES, TAGS, COMMENTS } from "../constants/endpoints";
 
 class Api {
     static getArticles = (params) => {
@@ -18,6 +18,12 @@ class Api {
             resolve(api.get(`/${ARTICLES}/${slug}`));
         });
     };
+
+    static getComments = (slug) => {
+        return new Promise((resolve, reject) => {
+            resolve(api.get(`/${ARTICLES}/${slug}/${COMMENTS}`));
+        });
+    } 
 
     static getTags = () => {
         return new Promise((resolve, reject) => {

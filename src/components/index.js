@@ -1,9 +1,10 @@
-import ArticlePreview from "./ArticlePreview";
+import Banner  from "./Article/Banner";
+import Preview from "./Article/Preview";
+import Content from "./Article/Content";
+import PostCard from "./Article/PostCard";
 import Button from "./Button";
 import CustomNavLink from "./CustomNavLink";
 import Input from "./Input";
-import Banner from "./Banner";
 import Tag from "./Tag";
-import ArticleBanner from "./ArticleBanner";
 
-export { Button, CustomNavLink, Input, Banner, ArticlePreview, Tag, ArticleBanner };
+export { Button, CustomNavLink, Input, Banner, Tag, Preview, Content, PostCard };
