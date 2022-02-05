@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let mainAxios = axios.create({
+let normalAxios = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
         "Content-Type": "application/json",
@@ -8,7 +8,7 @@ let mainAxios = axios.create({
 });
 
 // Interceptor request
-mainAxios.interceptors.request.use(
+normalAxios.interceptors.request.use(
     function (config) {
         return config
     },
@@ -19,7 +19,7 @@ mainAxios.interceptors.request.use(
 );
 
 // Interceptor response
-mainAxios.interceptors.response.use(
+normalAxios.interceptors.response.use(
     function (response) {
         // Do something with response data
         return response.data;
@@ -58,4 +58,4 @@ mainAxios.interceptors.response.use(
     }
 );
 
-export default mainAxios;
+export default normalAxios;

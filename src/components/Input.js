@@ -1,10 +1,12 @@
 function Input({
-  type = "text",
-  className = "form-control form-control-lg",
-  onChange=() => {},
-  ...props
+    value="",
+    type = "text",
+    className = "form-control form-control-lg",
+    placeholder = "",
+    onChange = () => {},
+    ...props
 }) {
-  return <input className={className} onChange={onChange} type={type} {...props} />;
+    return <input value={value} type={type} className={className} onChange={onChange} placeholder={placeholder} {...props} />;
 }
 
 export default Input;

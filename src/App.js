@@ -1,13 +1,13 @@
 import { Layout } from "./pages";
 import { Routes, Route } from "react-router-dom";
 import mainRoutes from "./routes";
+import { authHOC } from "./utils";
 import "./App.css";
 
 function App() {
-	
     return (
         <Routes>
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={authHOC(Layout)}>
                 {mainRoutes.map((item, index) => {
                     return item.index ? (
                         <Route key={index} index={item.index} element={item.element} />

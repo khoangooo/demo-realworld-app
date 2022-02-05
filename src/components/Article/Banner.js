@@ -1,14 +1,19 @@
+import Button from "../Button";
 import { Link } from "react-router-dom";
 
 function ArticleBanner({
+    isLoggedIn = false,
     title = "",
     username = "",
     dateString = "",
     favoritesCount = 0,
     imgUrl = "http://i.imgur.com/Qr71crq.jpg",
     alt = "",
+    linkToUpdateArticleContent = "",
+    handleRemoveArticle = () => {},
     handleGoToUserPage = () => {},
 }) {
+
     return (
         <div className="container">
             {title && <h1>{title}</h1>}
@@ -23,16 +28,29 @@ function ArticleBanner({
                     </Link>
                     <span className="date">{dateString}</span>
                 </div>
-                <button className="btn btn-sm btn-outline-secondary" onClick={handleGoToUserPage}>
-                    <i className="ion-plus-round"></i>
-                    &nbsp; Follow &nbsp;{username}
-                    {/* <span className="counter">{`(${favoritesCount})`}</span> */}
-                </button>
-                &nbsp;&nbsp;
-                <button className="btn btn-sm btn-outline-primary">
-                    <i className="ion-heart"></i>
-                    &nbsp; Favorite Article <span className="counter">{`(${favoritesCount})`}</span>
-                </button>
+                {isLoggedIn ? (
+                    <span>
+                        <Link className="btn btn-outline-secondary btn-sm" to={linkToUpdateArticleContent}>
+                            <i className="ion-edit"></i> Edit Article
+                        </Link>
+                        <Button className="btn btn-outline-danger btn-sm m-l-1" onClick={handleRemoveArticle}>
+                            <i className="ion-trash-a"></i> Delete Article
+                        </Button>
+                    </span>
+                ) : (
+                    <span>
+                        <Button className="btn btn-sm btn-outline-secondary" onClick={handleGoToUserPage}>
+                            <i className="ion-plus-round"></i>
+                            &nbsp;Follow&nbsp;{username}
+                            {/* <span className="counter">{`(${favoritesCount})`}</span> */}
+                        </Button>
+                        &nbsp;&nbsp;
+                        <Button className="btn btn-sm btn-outline-primary m-l-1">
+                            <i className="ion-heart"></i>
+                            &nbsp;Favorite Article <span className="counter">{`(${favoritesCount})`}</span>
+                        </Button>
+                    </span>
+                )}
             </div>
         </div>
     );

@@ -1,21 +1,15 @@
 import { Input, Button } from "../components";
 
-function LoginForm({ onClick = () => {}, onChange = () => {} }) {
-
-    const handleChange = (type) => (e) => {
-        const value = { [type]: e.target.value };
-        onChange(value);
-    };
-
+function LoginForm({ onClick = () => {}, handleEnterUserAccount = () => {} }) {
     return (
         <form>
             <fieldset className="form-group">
-                <Input type="email" placeholder="Email" onChange={handleChange("email")} />
+                <Input type="email" placeholder="Email" onChange={handleEnterUserAccount("email")} />
             </fieldset>
             <fieldset className="form-group">
-                <Input type="password" placeholder="Password" onChange={handleChange("password")} />
+                <Input type="password" placeholder="Password" onChange={handleEnterUserAccount("password")} />
             </fieldset>
-            <Button title="Sign in" onClick={onClick} />
+            <Button onClick={onClick}>Sign in</Button>
         </form>
     );
 }

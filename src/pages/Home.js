@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { Preview, Tag } from "../components";
 import { Feed } from "../containers";
+import { useSelector } from "react-redux";
 import api from "../api";
 import dayjs from "dayjs";
 
@@ -10,6 +11,7 @@ function Home() {
     const [loadingArticles, setLoadingArticles] = useState(false);
     const [loadingTags, setLoadingTags] = useState(false);
 
+    const user = useSelector((store) => store.login);
 
     useEffect(() => {
         getArticles();
@@ -50,16 +52,18 @@ function Home() {
 
     return (
         <div className="home-page">
-            <div className="banner">
-                <div className="container">
-                    <h1 className="logo-font">conduit</h1>
-                    <p>A place to share your knowledge.</p>
+            {!user.isLoggedIn && (
+                <div className="banner">
+                    <div className="container">
+                        <h1 className="logo-font">conduit</h1>
+                        <p>A place to share your knowledge.</p>
+                    </div>
                 </div>
-            </div>
+            )}
             <div className="container page">
                 <div className="row">
                     <div className="col-md-9">
-                        <Feed />
+                        <Feed wrapperClassName="feed-toggle"/>
                         {loadingArticles ? (
                             <div className="m-t-2">Loading articles...</div>
                         ) : (

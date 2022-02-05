@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Button from "../Button";
 import {ARTICLE} from "../../constants/endpoints";
 
 function ArticlePreview({
@@ -24,9 +25,9 @@ function ArticlePreview({
                     </Link>
                     <span className="date">{dateString}</span>
                 </div>
-                <button className="btn btn-outline-primary btn-sm pull-xs-right">
+                <Button className="btn btn-outline-primary btn-sm pull-xs-right">
                     <i className="ion-heart"></i> {favoritesCount}
-                </button>
+                </Button>
             </div>
             <Link to={`/${ARTICLE}/${slug}`} className="preview-link">
                 <h1>{title}</h1>

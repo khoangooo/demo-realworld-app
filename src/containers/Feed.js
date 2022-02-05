@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 
-function Feed() {
+function Feed({wrapperClassName=""}) {
   return (
-    <div className="feed-toggle">
+    <div className={wrapperClassName}>
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
           <Link className="nav-link" to="">

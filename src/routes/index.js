@@ -1,4 +1,4 @@
-import { Article, Home, Login, Register } from "../pages";
+import { Article, Home, Login, Register, CreateOrEditArticle, Settings, Profile } from "../pages";
 
 const headerMenuItem = [
     {
@@ -6,14 +6,6 @@ const headerMenuItem = [
         element: <Home />,
         index: true,
     },
-    // {
-    //     to: "/",
-    //     component: null,
-    // },
-    // {
-    //     to: "/",
-    //     component: null,
-    // },
     {
         path: "login",
         element: <Login />,
@@ -23,13 +15,32 @@ const headerMenuItem = [
         path: "article/:article_slug",
         element: <Article />,
         index: false,
-        title: ""
     },
     {
         path: "register",
         element: <Register />,
         index: false,
     },
+    {
+        path: "editor/",
+        element: <CreateOrEditArticle />,
+        index: false,
+    },
+    {
+        path: "editor/:article_slug",
+        element: <CreateOrEditArticle />,
+        index: false,
+    },
+    {
+        path: "settings",
+        element: <Settings />,
+        index: false,
+    },
+    {
+        path: ":username",
+        element: <Profile />,
+        index: false,
+    }
 ];
 
 export default headerMenuItem;

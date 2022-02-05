@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Banner, Content, PostCard } from "../components";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import api from "../api";
 import dayjs from "dayjs";
 
@@ -10,14 +11,15 @@ function Article() {
     const [comments, setComments] = useState([]);
     const [loadingArticle, setLoadingArticle] = useState(false);
     const [loadingComments, setLoadingComments] = useState(false);
-    let navigate = useNavigate();
+    const navigate = useNavigate();
+    const user = useSelector((store) => store.login);
 
     useEffect(() => {
         if (article_slug) {
             getArticle(article_slug);
             getComments(article_slug);
         }
-    }, []);
+    }, [article_slug]);
 
     useEffect(() => {
         if (article_slug) {
@@ -53,6 +55,12 @@ function Article() {
         navigate("/register");
     };
 
+    const handleRemoveArticle = () => {
+        if (article_slug) {
+            api.deleteArticle(article_slug).then(() => navigate("/"));
+        }
+    };
+
     return (
         !loadingArticle && (
             <div className="article-page">
@@ -65,6 +73,9 @@ function Article() {
                         imgUrl={article.author?.image}
                         alt={article.author?.username}
                         handleGoToUserPage={handleGoToUserPage}
+                        linkToUpdateArticleContent={`/editor/${article.slug}`}
+                        isLoggedIn={user.isLoggedIn}
+                        handleRemoveArticle={handleRemoveArticle}
                     />
                 </div>
                 <div className="container page">
@@ -78,6 +89,9 @@ function Article() {
                             imgUrl={article.author?.image}
                             alt={article.author?.username}
                             handleGoToUserPage={handleGoToUserPage}
+                            linkToUpdateArticleContent={`/article/${article.slug}`}
+                            isLoggedIn={user.isLoggedIn}
+                            handleRemoveArticle={handleRemoveArticle}
                         />
                     </div>
                     <div className="row">

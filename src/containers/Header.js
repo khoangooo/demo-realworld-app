@@ -16,12 +16,12 @@ function Header() {
                     {user.isLoggedIn ? (
                         <>
                             <li className="nav-item">
-                                <CustomNavLink to="/edit">
+                                <CustomNavLink to="editor/">
                                     <i className="ion-compose"></i>&nbsp;New Article
                                 </CustomNavLink>
                             </li>
                             <li className="nav-item">
-                                <CustomNavLink to="/settings">
+                                <CustomNavLink to="settings">
                                     <i className="ion-gear-a"></i>&nbsp;Settings
                                 </CustomNavLink>
                             </li>

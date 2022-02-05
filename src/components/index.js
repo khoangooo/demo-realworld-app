@@ -5,6 +5,7 @@ import PostCard from "./Article/PostCard";
 import Button from "./Button";
 import CustomNavLink from "./CustomNavLink";
 import Input from "./Input";
+import Textarea from "./Textarea";
 import Tag from "./Tag";
 
-export { Button, CustomNavLink, Input, Banner, Tag, Preview, Content, PostCard };
+export { Button, CustomNavLink, Input,Textarea, Banner, Tag, Preview, Content, PostCard };

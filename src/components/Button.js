@@ -1,12 +1,20 @@
 function Button({
-    title = "Click me",
     className = "btn btn-lg btn-primary pull-xs-right",
     onClick = () => {},
+    type = "",
+    disabled = false,
+    children,
     ...props
 }) {
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onClick()
+    }
+
     return (
-        <button className={className} onClick={onClick} {...props}>
-            {title}
+        <button type={type} className={className} onClick={handleSubmit} disabled={disabled} {...props}>
+            {children}
         </button>
     );
 }

@@ -21,7 +21,7 @@ function Layout() {
 
     useEffect(() => {
         api.get(`/${USER}`).then((res) => dispatch(loginAccountWithToken(res.data.user)));
-    }, []);
+    }, [dispatch]);
 
     return (
         <>

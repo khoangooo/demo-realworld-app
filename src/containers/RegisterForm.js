@@ -9,7 +9,7 @@ function LoginForm() {
             <fieldset className="form-group">
                 <Input type="password" placeholder="Password" />
             </fieldset>
-            <Button title="Sign up" />
+            <Button>Sign up</Button>
         </form>
     );
 }

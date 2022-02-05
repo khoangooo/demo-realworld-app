@@ -1,33 +1,33 @@
-import api from "./configApi";
-import { ARTICLES, TAGS, COMMENTS, USERS, LOGIN } from "../constants/endpoints";
+import normalAxios from "./configApi";
+import { ARTICLES, TAGS, COMMENTS, USERS, LOGIN, USER, PROFILES } from "../constants/endpoints";
 
 class Api {
-    static getArticles = (params) => {
+    static getArticles = (params = {}) => {
         let queryString = `limit=${params.limit || 10}&offset=${params.offset || 0}`;
         if (params.tag) {
             queryString += `&tag=${params.tag}`;
         }
 
         return new Promise((resolve, reject) => {
-            resolve(api.get(`/${ARTICLES}?${queryString}`));
+            resolve(normalAxios.get(`/${ARTICLES}?${queryString}`));
         });
     };
 
-    static getArticle = (slug) => {
+    static getArticle = (slug = "") => {
         return new Promise((resolve, reject) => {
-            resolve(api.get(`/${ARTICLES}/${slug}`));
+            resolve(normalAxios.get(`/${ARTICLES}/${slug}`));
         });
     };
 
-    static getComments = (slug) => {
+    static getComments = (slug = "") => {
         return new Promise((resolve, reject) => {
-            resolve(api.get(`/${ARTICLES}/${slug}/${COMMENTS}`));
+            resolve(normalAxios.get(`/${ARTICLES}/${slug}/${COMMENTS}`));
         });
     };
 
     static getTags = () => {
         return new Promise((resolve, reject) => {
-            resolve(api.get(`/${TAGS}`));
+            resolve(normalAxios.get(`/${TAGS}`));
         });
     };
 
@@ -42,13 +42,43 @@ class Api {
             if (!dataSubmit.email && !dataSubmit.password) {
                 reject(console.log("email or password was wrong"));
             }
-            resolve(api.post(`/${USERS}/${LOGIN}`, { user: dataSubmit }));
+            resolve(normalAxios.post(`/${USERS}/${LOGIN}`, { user: dataSubmit }));
         });
     };
 
     static registerAccount = (dataSubmit = {}) => {
         return new Promise((resolve, reject) => {
-            resolve(api.post(`/${USERS}`, { user: dataSubmit }));
+            resolve(normalAxios.post(`/${USERS}`, { user: dataSubmit }));
+        });
+    };
+
+    static createNewArticle = (dataSubmit = {}) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.post(`/${ARTICLES}`, { article: dataSubmit }));
+        });
+    };
+
+    static updateArticle = (slug = "", dataSubmit = {}) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.put(`/${ARTICLES}/${slug}`, { article: dataSubmit }));
+        });
+    };
+
+    static deleteArticle = (slug = "") => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.delete(`/${ARTICLES}/${slug}`));
+        });
+    };
+
+    static updateUserProfile = (dataSubmit = {}) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.put(`/${USER}`, { user: dataSubmit }));
+        });
+    };
+
+    static getUserProfile = (username) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.get(`/${PROFILES}/${username}`));
         });
     };
 }
