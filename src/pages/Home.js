@@ -10,6 +10,7 @@ function Home() {
     const [loadingArticles, setLoadingArticles] = useState(false);
     const [loadingTags, setLoadingTags] = useState(false);
 
+
     useEffect(() => {
         getArticles();
         getTags();

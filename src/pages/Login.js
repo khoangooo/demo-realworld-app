@@ -1,12 +1,25 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { LoginForm } from "../containers";
+import { useSelector, useDispatch} from "react-redux";
 import { Link } from "react-router-dom";
+import { loginAccount } from "../redux/login/thunk";
 
 function Login() {
+    const dispatch = useDispatch();
+    const [userAccount, setUserAccout] = useState({})
 
     useEffect(() => {
         document.title = "Sign in - Conduit"
-    })
+    }, [])
+
+    const handleEnterUserAccount = (value = {}) => {
+        setUserAccout({...userAccount, ...value})
+    }
+
+    const handleLoginAccount = (e) => {
+        e.preventDefault();
+        dispatch(loginAccount(userAccount));
+    };
 
     return (
         <div className="auth-page">
@@ -21,7 +34,7 @@ function Login() {
                         <ul className="error-messages">
                             <li>That email is already taken</li>
                         </ul>
-                        <LoginForm />
+                        <LoginForm onChange={handleEnterUserAccount} onClick={handleLoginAccount}/>
                     </div>
                 </div>
             </div>

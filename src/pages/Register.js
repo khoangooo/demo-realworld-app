@@ -6,8 +6,7 @@ function Register() {
 
     useEffect(() => {
         document.title = "Sign up - Conduit"
-    })
-
+    }, [])
 
     return (
         <div className="auth-page">

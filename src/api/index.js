@@ -1,5 +1,5 @@
 import api from "./configApi";
-import { ARTICLES, TAGS, COMMENTS } from "../constants/endpoints";
+import { ARTICLES, TAGS, COMMENTS, USERS, LOGIN } from "../constants/endpoints";
 
 class Api {
     static getArticles = (params) => {
@@ -23,11 +23,32 @@ class Api {
         return new Promise((resolve, reject) => {
             resolve(api.get(`/${ARTICLES}/${slug}/${COMMENTS}`));
         });
-    } 
+    };
 
     static getTags = () => {
         return new Promise((resolve, reject) => {
             resolve(api.get(`/${TAGS}`));
+        });
+    };
+
+    static loginAccount = (dataSubmit = {}) => {
+        return new Promise((resolve, reject) => {
+            if (!("email" in dataSubmit)) {
+                reject(console.log("email required"));
+            }
+            if (!("password" in dataSubmit)) {
+                reject(console.log("password required"));
+            }
+            if (!dataSubmit.email && !dataSubmit.password) {
+                reject(console.log("email or password was wrong"));
+            }
+            resolve(api.post(`/${USERS}/${LOGIN}`, { user: dataSubmit }));
+        });
+    };
+
+    static registerAccount = (dataSubmit = {}) => {
+        return new Promise((resolve, reject) => {
+            resolve(api.post(`/${USERS}`, { user: dataSubmit }));
         });
     };
 }
