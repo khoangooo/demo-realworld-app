@@ -8,3 +8,4 @@ export const USER = "user";
 export const LOGIN = "login";
 export const PROFILES = "profiles";
 export const FEED = "feed";
+export const FOLLOW = "follow";

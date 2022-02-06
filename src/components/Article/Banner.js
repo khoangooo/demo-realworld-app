@@ -12,14 +12,15 @@ function ArticleBanner({
     linkToUpdateArticleContent = "",
     handleRemoveArticle = () => {},
     handleGoToUserPage = () => {},
+    isCurrentUser = false,
+    following = false,
 }) {
-
     return (
         <div className="container">
             {title && <h1>{title}</h1>}
 
             <div className="article-meta">
-                <Link to="">
+                <Link to={`../${username}`}>
                     <img src={imgUrl} alt={alt} />
                 </Link>
                 <div className="info">
@@ -28,7 +29,7 @@ function ArticleBanner({
                     </Link>
                     <span className="date">{dateString}</span>
                 </div>
-                {isLoggedIn ? (
+                {isLoggedIn && isCurrentUser ? (
                     <span>
                         <Link className="btn btn-outline-secondary btn-sm" to={linkToUpdateArticleContent}>
                             <i className="ion-edit"></i> Edit Article
@@ -41,8 +42,7 @@ function ArticleBanner({
                     <span>
                         <Button className="btn btn-sm btn-outline-secondary" onClick={handleGoToUserPage}>
                             <i className="ion-plus-round"></i>
-                            &nbsp;Follow&nbsp;{username}
-                            {/* <span className="counter">{`(${favoritesCount})`}</span> */}
+                            {`${following ? " Unfollow" : " Follow"} ${username}`}
                         </Button>
                         &nbsp;&nbsp;
                         <Button className="btn btn-sm btn-outline-primary m-l-1">

@@ -13,6 +13,7 @@ function Article() {
     const [loadingComments, setLoadingComments] = useState(false);
     const [comment, setComment] = useState({});
     const [confirmPostingComment, setConfirmPostingComment] = useState(false);
+    const [following, setFollowing] = useState(false);
 
     const navigate = useNavigate();
     const user = useSelector((store) => store.login);
@@ -58,7 +59,19 @@ function Article() {
     };
 
     const handleGoToUserPage = () => {
-        navigate("/register");
+        if (user.isLoggedIn) {
+            if (article?.author?.following) {
+                api.unfollowUser(article?.author?.username).then((res) => {
+                    setFollowing(res.profile.following);
+                });
+            } else {
+                api.followUser(article?.author?.username).then((res) => {
+                    setFollowing(res.profile.following);
+                });
+            }
+        } else {
+            navigate("/register");
+        }
     };
 
     const handleRemoveArticle = () => {
@@ -83,11 +96,11 @@ function Article() {
 
     const handleRemoveComment = (article_slug, comment_id) => () => {
         setLoadingComments(true);
-        setConfirmPostingComment(true)
+        setConfirmPostingComment(true);
         api.deleteComment(article_slug, comment_id)
             .then((res) => {
                 setLoadingComments(false);
-                setConfirmPostingComment(false)
+                setConfirmPostingComment(false);
                 getComments(article_slug);
             })
             .catch((err) => setLoadingComments(false));
@@ -108,6 +121,8 @@ function Article() {
                         linkToUpdateArticleContent={`/editor/${article.slug}`}
                         isLoggedIn={user.isLoggedIn}
                         handleRemoveArticle={handleRemoveArticle}
+                        isCurrentUser={user.userAccount?.username === article?.author?.username}
+                        following={following}
                     />
                 </div>
                 <div className="container page">
@@ -124,6 +139,8 @@ function Article() {
                             linkToUpdateArticleContent={`/article/${article.slug}`}
                             isLoggedIn={user.isLoggedIn}
                             handleRemoveArticle={handleRemoveArticle}
+                            isCurrentUser={user.userAccount?.username === article?.author?.username}
+                            following={following}
                         />
                     </div>
                     <div className="row">

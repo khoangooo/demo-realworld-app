@@ -7,11 +7,11 @@ function PostCard({ isAuthor = "", body = "", username = "", dateString = "", im
                 <p className="card-text">{body}</p>
             </div>
             <div className="card-footer">
-                <Link to="" className="comment-author">
+                <Link to={`../${username}`} className="comment-author">
                     <img src={imgUrl} className="comment-author-img" alt={username} />
                 </Link>
                 &nbsp;
-                <Link to="" className="comment-author">
+                <Link to={`../${username}`} className="comment-author">
                     {username}
                 </Link>
                 <span className="date-posted">{dateString}</span>

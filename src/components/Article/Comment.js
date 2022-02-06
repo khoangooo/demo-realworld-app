@@ -2,13 +2,13 @@ import Button from "../Button";
 import Textarea from "../Textarea";
 
 function Comment({
-    image="",
+    image = "",
     placeholder = "Write a comment...",
     body = undefined,
     okText = "Post Comment",
     onChange = () => {},
     handlePostComment = () => {},
-    disabled=false
+    disabled = false,
 }) {
     return (
         <form className="card comment-form">

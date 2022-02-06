@@ -1,5 +1,5 @@
 import normalAxios from "./configApi";
-import { ARTICLES, TAGS, COMMENTS, USERS, LOGIN, USER, PROFILES, FEED } from "../constants/endpoints";
+import { ARTICLES, TAGS, COMMENTS, USERS, LOGIN, USER, PROFILES, FEED, FOLLOW } from "../constants/endpoints";
 
 class Api {
     static getArticles = (params = {}) => {
@@ -104,9 +104,22 @@ class Api {
             resolve(normalAxios.post(`/${ARTICLES}/${slug}/${COMMENTS}`, { comment: dataSubmit }));
         });
     };
+
     static deleteComment = (slug, comment_id) => {
         return new Promise((resolve, reject) => {
             resolve(normalAxios.delete(`/${ARTICLES}/${slug}/${COMMENTS}/${comment_id}`));
+        });
+    };
+
+    static followUser = (username) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.post(`/${PROFILES}/${username}/${FOLLOW}`));
+        });
+    };
+
+    static unfollowUser = (username) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.delete(`/${PROFILES}/${username}/${FOLLOW}`));
         });
     };
 }
