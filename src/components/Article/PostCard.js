@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function PostCard({ body = "", username = "", dateString = "", imgUrl = "" }) {
+function PostCard({ isAuthor = "", body = "", username = "", dateString = "", imgUrl = "", handleRemoveComment = {} }) {
     return (
         <div className="card">
             <div className="card-block">
@@ -15,6 +15,11 @@ function PostCard({ body = "", username = "", dateString = "", imgUrl = "" }) {
                     {username}
                 </Link>
                 <span className="date-posted">{dateString}</span>
+                {isAuthor && (
+                    <span className="mod-options">
+                        <i className="ion-trash-a" onClick={handleRemoveComment}></i>
+                    </span>
+                )}
             </div>
         </div>
     );

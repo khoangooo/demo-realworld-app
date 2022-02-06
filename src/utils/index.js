@@ -18,6 +18,10 @@ export function authHOC(BaseComponent) {
         const token = getTokenFromLocalStorage();
         const isLoggedIn = !!token;
         if (isLoggedIn) {
+            if (window.location.pathname === "/login" || window.location.pathname === "/register") {
+                window.location.pathname = "/"
+                return null;
+            }
             api.defaults.headers.common["Authorization"] = token;
         }
         return <BaseComponent {...props} />;

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { LoginForm } from "../containers";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginAccount } from "../redux/login/thunk";
 
 function Login() {
+    const user = useSelector((store) => store.login)
     const dispatch = useDispatch();
     const [userAccount, setUserAccout] = useState({});
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Login() {
 
     const handleLoginAccount = () => {
         dispatch(loginAccount(userAccount));
-        navigate("/")
+        setTimeout(() =>  navigate(".."), 100)
     };
 
     const handleEnterUserAccount = (type) => (e) => {

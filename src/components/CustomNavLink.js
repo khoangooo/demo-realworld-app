@@ -4,6 +4,7 @@ function CustomNavLink({
   children,
   to = "",
   className = "nav-link",
+  onClick=() => {},
   ...props
 }) {
   return (
@@ -13,6 +14,7 @@ function CustomNavLink({
       className={({ isActive }) =>
         isActive ? `${className} active` : `${className}`
       }
+      onClick={onClick}
     >
       {children}
     </NavLink>

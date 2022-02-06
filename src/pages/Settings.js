@@ -31,8 +31,8 @@ function Settings() {
 
     const handleLogout = () => {
         dispatch(logout());
-        navigate("/")
-    }
+        navigate("..");
+    };
 
     return (
         <div className="settings-page">

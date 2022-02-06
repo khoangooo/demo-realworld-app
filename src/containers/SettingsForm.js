@@ -1,7 +1,7 @@
 import { Button, Input, Textarea } from "../components";
 
 function SettingsForm({
-    bio = "",
+    bio = undefined,
     email = "",
     image = "",
     username = "",

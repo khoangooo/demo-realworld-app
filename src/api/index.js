@@ -1,5 +1,5 @@
 import normalAxios from "./configApi";
-import { ARTICLES, TAGS, COMMENTS, USERS, LOGIN, USER, PROFILES } from "../constants/endpoints";
+import { ARTICLES, TAGS, COMMENTS, USERS, LOGIN, USER, PROFILES, FEED } from "../constants/endpoints";
 
 class Api {
     static getArticles = (params = {}) => {
@@ -16,6 +16,17 @@ class Api {
     static getArticle = (slug = "") => {
         return new Promise((resolve, reject) => {
             resolve(normalAxios.get(`/${ARTICLES}/${slug}`));
+        });
+    };
+
+    static getYourArticles = (params = {}) => {
+        let queryString = `limit=${params.limit || 10}&offset=${params.offset || 0}`;
+        if (params.tag) {
+            queryString += `&tag=${params.tag}`;
+        }
+
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.get(`/${ARTICLES}/${FEED}?${queryString}`));
         });
     };
 
@@ -76,9 +87,26 @@ class Api {
         });
     };
 
-    static getUserProfile = (username) => {
+    static getUserProfile = (username = "") => {
         return new Promise((resolve, reject) => {
             resolve(normalAxios.get(`/${PROFILES}/${username}`));
+        });
+    };
+
+    static createNewUser = (dataSubmit = {}) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.post(`/${USERS}`, { user: dataSubmit }));
+        });
+    };
+
+    static createNewComment = (slug, dataSubmit = {}) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.post(`/${ARTICLES}/${slug}/${COMMENTS}`, { comment: dataSubmit }));
+        });
+    };
+    static deleteComment = (slug, comment_id) => {
+        return new Promise((resolve, reject) => {
+            resolve(normalAxios.delete(`/${ARTICLES}/${slug}/${COMMENTS}/${comment_id}`));
         });
     };
 }

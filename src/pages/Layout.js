@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Header, Footer } from "../containers";
 import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { USER } from "../constants/endpoints";
 import axios from "axios";
 import { loginAccountWithToken } from "../redux/login/slice";
@@ -18,23 +17,31 @@ let api = axios.create({
 });
 
 function Layout() {
+    const mountedRef = useRef(false);
+    const [isMounted, setIsMounted] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
+        mountedRef.current = true;
         if (token) {
             api.get(`/${USER}`).then((res) => {
-                dispatch(loginAccountWithToken(res.data.user))
+                dispatch(loginAccountWithToken(res.data.user));
+                setIsMounted(true);
             });
+        } else {
+            setIsMounted(true)
         }
-    }, [dispatch, navigate]);
+        return () => (mountedRef.current = false);
+    }, [dispatch]);
 
     return (
-        <>
-            <Header />
-            <Outlet />
-            <Footer />
-        </>
+        isMounted && (
+            <>
+                <Header />
+                <Outlet />
+                <Footer />
+            </>
+        )
     );
 }
 
