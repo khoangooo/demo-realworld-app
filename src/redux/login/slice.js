@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginAccount } from "./thunk";
-import { storeTokenToLocalStorage } from "../../utils";
+import { storeTokenToLocalStorage, removeToken } from "../../utils";
 
 const initialState = {
     err: "",
@@ -17,6 +17,11 @@ export const loginSlice = createSlice({
             state.isLoggedIn = true;
             state.userAccount = payload;
         },
+        logout: (state) => {
+            removeToken();
+            state.isLoggedIn = false;
+            state.userAccount = {};
+        }
     },
     extraReducers: {
         [loginAccount.pending]: (state) => {
@@ -35,6 +40,6 @@ export const loginSlice = createSlice({
     },
 });
 
-export const { loginAccountWithToken } = loginSlice.actions
+export const { loginAccountWithToken, logout } = loginSlice.actions
 
 export default loginSlice.reducer;

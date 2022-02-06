@@ -10,7 +10,7 @@ export function getTokenFromLocalStorage() {
 }
 
 export function removeToken() {
-    localStorage.removeItem("token");
+    localStorage.clear();
 }
 
 export function authHOC(BaseComponent) {

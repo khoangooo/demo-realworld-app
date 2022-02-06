@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
+import { Button } from "../components";
 import { SettingsForm } from "../containers";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/login/slice";
 import api from "../api";
 
 function Settings() {
     const user = useSelector((store) => store.login);
+    const dispatch = useDispatch();
+
     const [settings, setSettings] = useState(user.userAccount || {});
 
     const navigate = useNavigate();
@@ -25,6 +29,11 @@ function Settings() {
         });
     };
 
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate("/")
+    }
+
     return (
         <div className="settings-page">
             <div className="container page">
@@ -39,6 +48,10 @@ function Settings() {
                             handleChangeSettings={handleChangeSettings}
                             handleSubmit={handleSubmit}
                         />
+                        <hr />
+                        <Button className="btn btn-outline-danger" onClick={handleLogout}>
+                            Or click here to logout.
+                        </Button>
                     </div>
                 </div>
             </div>

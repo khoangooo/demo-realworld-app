@@ -1,13 +1,18 @@
 import { Input, Button } from "../components";
 
-function LoginForm({ onClick = () => {}, handleEnterUserAccount = () => {} }) {
+function LoginForm({ email = "", password = "", onClick = () => {}, handleEnterUserAccount = () => {} }) {
     return (
         <form>
             <fieldset className="form-group">
-                <Input type="email" placeholder="Email" onChange={handleEnterUserAccount("email")} />
+                <Input value={email} type="email" placeholder="Email" onChange={handleEnterUserAccount("email")} />
             </fieldset>
             <fieldset className="form-group">
-                <Input type="password" placeholder="Password" onChange={handleEnterUserAccount("password")} />
+                <Input
+                    value={password}
+                    type="password"
+                    placeholder="Password"
+                    onChange={handleEnterUserAccount("password")}
+                />
             </fieldset>
             <Button onClick={onClick}>Sign in</Button>
         </form>

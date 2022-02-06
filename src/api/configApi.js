@@ -25,12 +25,6 @@ normalAxios.interceptors.response.use(
         return response.data;
     },
     function (error) {
-        // if (error?.response?.status === 401) {
-        //     // removeToken();
-        //     if (window.location.pathname !== "/login") {
-        //         window.location.href = "/login";
-        //     }
-        // }
         // else if (error?.response?.status === 403) {
         //     if (error?.response?.data.message === "Role Invalid") {
         //         window.location.href = "/";

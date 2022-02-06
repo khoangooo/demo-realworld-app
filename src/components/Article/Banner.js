@@ -23,7 +23,7 @@ function ArticleBanner({
                     <img src={imgUrl} alt={alt} />
                 </Link>
                 <div className="info">
-                    <Link to="" className="author">
+                    <Link to={`../${username}`} className="author">
                         {username}
                     </Link>
                     <span className="date">{dateString}</span>

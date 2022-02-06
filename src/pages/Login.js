@@ -1,25 +1,26 @@
 import { useState, useEffect } from "react";
 import { LoginForm } from "../containers";
-import { useDispatch} from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { loginAccount } from "../redux/login/thunk";
 
 function Login() {
     const dispatch = useDispatch();
-    const [userAccount, setUserAccout] = useState({})
+    const [userAccount, setUserAccout] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "Sign in - Conduit"
-    }, [])
+        document.title = "Sign in - Conduit";
+    }, []);
 
-    const handleLoginAccount = (e) => {
-        e.preventDefault();
+    const handleLoginAccount = () => {
         dispatch(loginAccount(userAccount));
+        navigate("/")
     };
 
     const handleEnterUserAccount = (type) => (e) => {
         const value = { [type]: e.target.value };
-        setUserAccout({...userAccount, ...value})
+        setUserAccout({ ...userAccount, ...value });
     };
 
     return (
@@ -35,13 +36,17 @@ function Login() {
                         <ul className="error-messages">
                             <li>That email is already taken</li>
                         </ul>
-                        <LoginForm handleEnterUserAccount={handleEnterUserAccount} onClick={handleLoginAccount}/>
+                        <LoginForm
+                            email={userAccount.email}
+                            password={userAccount.password}
+                            handleEnterUserAccount={handleEnterUserAccount}
+                            onClick={handleLoginAccount}
+                        />
                     </div>
                 </div>
             </div>
         </div>
     );
 }
-
 
 export default Login;

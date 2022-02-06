@@ -26,7 +26,7 @@ function Header() {
                                 </CustomNavLink>
                             </li>
                             <li className="nav-item">
-                                <CustomNavLink to={`/@${user.userAccount.username}`}>
+                                <CustomNavLink to={`${user.userAccount.username}`}>
                                     <img
                                         src={user.userAccount.image}
                                         className="user-pic"

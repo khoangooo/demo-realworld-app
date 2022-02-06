@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Header, Footer } from "../containers";
 import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { USER } from "../constants/endpoints";
 import axios from "axios";
 import { loginAccountWithToken } from "../redux/login/slice";
@@ -18,10 +19,15 @@ let api = axios.create({
 
 function Layout() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        api.get(`/${USER}`).then((res) => dispatch(loginAccountWithToken(res.data.user)));
-    }, [dispatch]);
+        if (token) {
+            api.get(`/${USER}`).then((res) => {
+                dispatch(loginAccountWithToken(res.data.user))
+            });
+        }
+    }, [dispatch, navigate]);
 
     return (
         <>

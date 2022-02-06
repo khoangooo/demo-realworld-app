@@ -1,4 +1,11 @@
-function UserInfo({ bio = "", following = false, image = "", username = "", followedUsername = "" }) {
+function UserInfo({
+    bio = "",
+    following = false,
+    image = "",
+    username = "",
+    currentLoggedInUser = "",
+    handleGoToSettingsPage = () => {},
+}) {
     return (
         <div className="user-info">
             <div className="container">
@@ -7,11 +14,14 @@ function UserInfo({ bio = "", following = false, image = "", username = "", foll
                         <img src={image} className="user-img" alt="" />
                         <h4>{username}</h4>
                         <p>{bio}</p>
-                        <button className="btn btn-sm btn-outline-secondary action-btn">
-                            {username !== followedUsername ? (
+                        <button
+                            className="btn btn-sm btn-outline-secondary action-btn"
+                            onClick={handleGoToSettingsPage}
+                        >
+                            {username !== currentLoggedInUser ? (
                                 <>
                                     <i className="ion-plus-round"></i>
-                                    &nbsp;{`${following ? "Unfollow" : "Follow"} ${followedUsername}`}
+                                    &nbsp;{`${following ? "Unfollow" : "Follow"} ${username}`}
                                 </>
                             ) : (
                                 <>
